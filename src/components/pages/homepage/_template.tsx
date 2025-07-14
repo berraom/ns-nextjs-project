@@ -4,12 +4,12 @@ import "react-phone-number-input/style.css";
 import { useState } from "react";
 import PhoneInput from "react-phone-number-input";
 import { Input } from "@/components/input";
+import { PhoneWrapper, CountryInputWrapper, StyledPhoneInput } from "@/components/input/_style";
 
 export const Homepage = () => {
   const [countryCode, setCountryCode] = useState<string | undefined>("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  
- 
+
   const formatPhoneNumber = (value: string) => {
     const digits = value.replace(/\D/g, "").slice(0, 10);
     const part1 = digits.slice(0, 3);
@@ -31,42 +31,26 @@ export const Homepage = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        gap: "8px",
-        alignItems: "center",
-        marginTop: "50px",
-      }}
-    >
-      <div style={{ position: "relative", display: "flex", alignItems: "center", border: "1px solid #d0d3d4", borderRadius: "8px" }}>
-        <PhoneInput
+    <PhoneWrapper>
+      <CountryInputWrapper>
+        <StyledPhoneInput
           defaultCountry="TR"
           value={countryCode}
           onChange={(value) => setCountryCode(value)}
           international
           countryCallingCodeEditable={false}
-          style={{
-            height: "40px",
-            width: "162px",
-            border: "1px solid #E8EBEC",
-            padding: "8px 16px 8px 16px",
-            fontSize: "16px",
-            backgroundColor: "#FFFFFF",
-          }}
         />
-      </div>
+      </CountryInputWrapper>
 
       <Input
         type="tel"
         inputMode="numeric"
         placeholder="555 555 55 55"
-        style={{ width: "322px", height: "40px", gap:"10px" ,  }}
-        maxLength={14} 
+        maxLength={14}
         pattern="\d{3}\s\d{3}\s\d{2}\s\d{2}"
         value={phoneNumber}
         onChange={handlePhoneChange}
       />
-    </div>
+    </PhoneWrapper>
   );
 };
