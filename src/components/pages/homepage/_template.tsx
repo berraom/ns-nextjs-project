@@ -3,8 +3,7 @@
 import "react-phone-number-input/style.css";
 import { useState } from "react";
 import PhoneInput from "react-phone-number-input";
-import { Input } from "@/components/input";
-import { PhoneWrapper, CountryInputWrapper, StyledPhoneInput } from "@/components/input/_style";
+import { InputBase, InputField } from "@/components/input/_style";
 
 export const Homepage = () => {
   const [countryCode, setCountryCode] = useState<string | undefined>("");
@@ -31,18 +30,19 @@ export const Homepage = () => {
   };
 
   return (
-    <PhoneWrapper>
-      <CountryInputWrapper>
-        <StyledPhoneInput
+    <InputBase>
+      <div className="country-wrapper">
+        <PhoneInput
           defaultCountry="TR"
           value={countryCode}
           onChange={(value) => setCountryCode(value)}
           international
           countryCallingCodeEditable={false}
+          className="StyledPhoneInput"
         />
-      </CountryInputWrapper>
+      </div>
 
-      <Input
+      <InputField
         type="tel"
         inputMode="numeric"
         placeholder="555 555 55 55"
@@ -51,6 +51,6 @@ export const Homepage = () => {
         value={phoneNumber}
         onChange={handlePhoneChange}
       />
-    </PhoneWrapper>
+    </InputBase>
   );
 };
