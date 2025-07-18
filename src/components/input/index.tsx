@@ -1,5 +1,5 @@
 
-export { Input } from "./_template";        // Input bileşeni
-export * from "./_style";                   // style dosyasındaki tüm exportlar
-export * from "./_type";                    // type dosyasındaki tüm exportlar
+export { Input } from "./_template";        
+export * from "./_style";                   
+export * from "./_type";                    
 

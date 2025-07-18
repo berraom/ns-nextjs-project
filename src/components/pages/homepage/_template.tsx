@@ -3,7 +3,7 @@
 import "react-phone-number-input/style.css";
 import { useState } from "react";
 import PhoneInput from "react-phone-number-input";
-import { InputBase, InputField } from "@/components/input/_style";
+import { InputBase, InputField } from "@/components/input";
 
 export const Homepage = () => {
   const [countryCode, setCountryCode] = useState<string | undefined>("");
