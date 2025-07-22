@@ -6,8 +6,8 @@ import PhoneInput from "react-phone-number-input";
 import { InputBase, InputField } from "@/components/input";
 
 export const Homepage = () => {
-  const [phoneValue, setPhoneValue] = useState<string | undefined>();
-  const [formattedPhone, setFormattedPhone] = useState("");
+  const [countryCode, setCountryCode] = useState<string>("TR");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const formatPhoneNumber = (value: string) => {
     const digits = value.replace(/\D/g, "").slice(0, 10);
@@ -24,20 +24,23 @@ export const Homepage = () => {
     return formatted;
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const formatted = formatPhoneNumber(e.target.value);
-    setFormattedPhone(formatted);
+    setPhoneNumber(formatted);
   };
 
   return (
-    <InputBase style={{ display: "flex", gap: 12, alignItems: "center" }}>
-      <div style={{ width: 130 }}>
+    <InputBase style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+      <div className="country-wrapper" style={{ width: 130 }}>
         <PhoneInput
-          defaultCountry="TR"
-          international
+          country={countryCode}
+          onCountryChange={(country) => {
+            if (country) setCountryCode(country);
+          }}
+          international={false}
           countryCallingCodeEditable={false}
-          value={phoneValue}
-          onChange={setPhoneValue}
+          value={undefined}
+          onChange={() => {}}
           className="StyledPhoneInput"
         />
       </div>
@@ -48,8 +51,8 @@ export const Homepage = () => {
         placeholder="555 555 55 55"
         maxLength={14}
         pattern="\d{3}\s\d{3}\s\d{2}\s\d{2}"
-        value={formattedPhone}
-        onChange={handleInputChange}
+        value={phoneNumber}
+        onChange={handlePhoneChange}
       />
     </InputBase>
   );
