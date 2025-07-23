@@ -53,10 +53,4 @@ export const InputField = styled.input`
   }
 `;
 
-export const InputLabel = styled.label`
-  font-weight: 400;
-  font-style: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: #465d69;
-`;
+export const InputLabel = styled.label``;

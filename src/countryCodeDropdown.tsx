@@ -74,7 +74,8 @@ export const CountryCodeDropdown = ({ value, onChange }: Props) => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  // Dropdown dışına tıklayınca kapanması için
+  
+  
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target as Node)) {
@@ -182,7 +183,7 @@ const Options = styled.div`
   border: 1px solid #e8ebec;
   border-radius: 8px;
   box-shadow: 0 8px 16px rgb(0 0 0 / 0.1);
-  z-index: 1000;
+  z-index: 100;
 `;
 
 const Option = styled.div<{ selected: boolean }>`
