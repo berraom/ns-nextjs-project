@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CountryCodeDropdown } from "@/components/Homepage/countryCodeDropdown";
+import { CountryCodeDropdown } from "@/countryCodeDropdown";
 import { InputBase, InputField } from "@/components/input";
 
 export const Homepage = () => {
