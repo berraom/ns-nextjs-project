@@ -1,12 +1,11 @@
 "use client";
 
-import "react-phone-number-input/style.css";
 import { useState } from "react";
-import PhoneInput from "react-phone-number-input";
+import { CountryCodeDropdown } from "@/components/Homepage/countryCodeDropdown";
 import { InputBase, InputField } from "@/components/input";
 
 export const Homepage = () => {
-  const [countryCode, setCountryCode] = useState<string | undefined>("");
+  const [countryCode, setCountryCode] = useState("+90");
   const [phoneNumber, setPhoneNumber] = useState("");
 
   const formatPhoneNumber = (value: string) => {
@@ -32,14 +31,7 @@ export const Homepage = () => {
   return (
     <InputBase>
       <div className="country-wrapper">
-        <PhoneInput
-          defaultCountry="TR"
-          value={countryCode}
-          onChange={(value) => setCountryCode(value)}
-          international
-          countryCallingCodeEditable={false}
-          className="StyledPhoneInput"
-        />
+        <CountryCodeDropdown value={countryCode} onChange={setCountryCode} />
       </div>
 
       <InputField
