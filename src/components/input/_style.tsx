@@ -9,6 +9,15 @@ export const InputBase = styled.div`
   width: 492px;
   height: 40px;
   margin-top: 50px;
+  
+  .CountryDropdown {
+   flow: row;
+   display: flex;
+   align-items: center;
+    justify-content: center;
+    width: 162px;
+    height: 40px;
+    border: 1px solid #E8EBEC;
 
   .country-wrapper {
     display: flex;
@@ -48,6 +57,7 @@ export const InputField = styled.input`
   border-radius: 8px;
   outline: none;
 
+  
   &::placeholder {
     color: #465D69;
     font-size: 16px;
