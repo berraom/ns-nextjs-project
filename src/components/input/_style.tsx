@@ -10,25 +10,7 @@ export const InputBase = styled.div`
   height: 40px;
   margin-top: 50px;
   
-  .CountryDropdown {
-   flow: row;
-   display: flex;
-   align-items: center;
-    justify-content: center;
-    width: 162px;
-    height: 40px;
-    border: 1px solid #E8EBEC;
-
-  .country-wrapper {
-    display: flex;
-    width: 162px;
-    height: 40px;
-    border: 1px solid #E8EBEC;
-    gap: 10px;
-    border-radius: 8px;
-    padding: 8px 16px;
-    align-items: center;
-  }
+  
 
   .StyledPhoneInput {
     height: 24px;

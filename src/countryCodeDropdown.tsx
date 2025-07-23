@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
+import styled from "@emotion/styled";
 
-const countryList = [
+const countries = [
   { code: "+1", name: "Amerika Birleşik Devletleri", flag: "🇺🇸" },
   { code: "+7", name: "Rusya", flag: "🇷🇺" },
   { code: "+20", name: "Mısır", flag: "🇪🇬" },
@@ -62,7 +63,6 @@ const countryList = [
   { code: "+227", name: "Nijer", flag: "🇳🇪" },
   { code: "+228", name: "Togo", flag: "🇹🇬" },
   { code: "+229", name: "Benin", flag: "🇧🇯" },
-  // İstersen devam ettirebilirsin
 ];
 
 type Props = {
@@ -71,17 +71,128 @@ type Props = {
 };
 
 export const CountryCodeDropdown = ({ value, onChange }: Props) => {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  // Dropdown dışına tıklayınca kapanması için
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const selected = countries.find((c) => c.code === value) || countries[0];
+
   return (
-    <select
-      className="CountryDropdown"
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-    >
-      {countryList.map(({ code, name, flag }) => (
-        <option key={code} value={code}>
-          {flag} {name} ({code})
-        </option>
-      ))}
-    </select>
+    <DropdownWrapper ref={ref}>
+      <Selected onClick={() => setOpen(!open)}>
+        <Flag>{selected.flag}</Flag>
+        <CountryName>
+          <span className="name">Turkey</span>
+          <span className="code">+90</span>
+        </CountryName>
+
+        <Arrow open={open}>▾</Arrow>
+      </Selected>
+
+      {open && (
+        <Options>
+          {countries.map((country) => (
+            <Option
+              key={country.code}
+              onClick={() => {
+                onChange(country.code);
+                setOpen(false);
+              }}
+              selected={country.code === value}
+            >
+              <Flag>{country.flag}</Flag>
+              {country.name} ({country.code})
+            </Option>
+          ))}
+        </Options>
+      )}
+    </DropdownWrapper>
   );
 };
+
+const DropdownWrapper = styled.div`
+
+  width: 170px;
+  height: 40px;
+  border: 1px solid #e8ebec;
+  border-radius: 8px;
+  padding: 8px 16px 8px 16px;
+  background-color: white;
+  position: relative;
+  user-select: none;
+  
+`;
+
+const Selected = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+`;
+
+const Flag = styled.span`
+  font-size: 24px;       
+  border-radius: 50%;    
+  width: 24px;
+  height: 24px;
+  line-height: 30px;
+  text-align: center;
+  margin-right: 8px;
+  display: inline-block;
+`;
+
+const CountryName = styled.span`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  .name, .code {
+    font-size: 16px;
+    line-height: 24px;
+    color: #465d69;
+  }
+`;
+
+const Arrow = styled.span<{ open: boolean }>`
+  width: 16px;
+  height: 16px;
+
+`;
+
+const Options = styled.div`
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 100%;
+  max-height: 220px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #e8ebec;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgb(0 0 0 / 0.1);
+  z-index: 1000;
+`;
+
+const Option = styled.div<{ selected: boolean }>`
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  background-color: ${(p) => (p.selected ? "#007bff33" : "white")};
+
+  &:hover {
+    background-color: #007bff22;
+  }
+`;
